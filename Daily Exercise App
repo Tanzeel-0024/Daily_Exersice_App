@@ -1,0 +1,128 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const DailyExerciseApp());
+}
+
+class DailyExerciseApp extends StatelessWidget {
+  const DailyExerciseApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Daily Exercise App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Daily Exercise Schedule'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            const Text(
+              'Today\'s Exercises',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            ExerciseCard(
+              title: 'Push-ups',
+              duration: '15 mins',
+              icon: Icons.fitness_center,
+            ),
+            ExerciseCard(
+              title: 'Running',
+              duration: '30 mins',
+              icon: Icons.directions_run,
+            ),
+            ExerciseCard(
+              title: 'Yoga',
+              duration: '20 mins',
+              icon: Icons.self_improvement,
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SummaryScreen()),
+                );
+              },
+              child: const Text('View Summary'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ExerciseCard extends StatelessWidget {
+  final String title;
+  final String duration;
+  final IconData icon;
+
+  // ignore: prefer_const_constructors_in_immutables
+  ExerciseCard(
+      {super.key,
+      required this.title,
+      required this.duration,
+      required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        leading: Icon(icon, color: Colors.blue),
+        title: Text(title),
+        subtitle: Text('Duration: $duration'),
+      ),
+    );
+  }
+}
+
+class SummaryScreen extends StatelessWidget {
+  const SummaryScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Summary'),
+      ),
+      body: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Weekly Summary',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Total Time Exercised: 5 hours',
+              style: TextStyle(fontSize: 18),
+            ),
+            Text(
+              'Calories Burned: 1500 kcal',
+              style: TextStyle(fontSize: 18),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
